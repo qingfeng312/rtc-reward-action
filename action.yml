@@ -1,0 +1,66 @@
+name: RTC Reward Action
+description: Award RustChain RTC to a merged pull request contributor.
+author: qingfeng312
+
+branding:
+  icon: gift
+  color: green
+
+inputs:
+  node-url:
+    description: RustChain node base URL.
+    required: false
+    default: https://50.28.86.131
+  transfer-endpoint:
+    description: Transfer endpoint path on the RustChain node.
+    required: false
+    default: /api/transfer
+  amount:
+    description: RTC amount to award for the merged pull request.
+    required: false
+    default: "5"
+  wallet-from:
+    description: Project wallet or fund wallet to send RTC from.
+    required: true
+  wallet-to:
+    description: Optional explicit destination wallet. If omitted, the action reads the PR body or .rtc-wallet.
+    required: false
+  admin-key:
+    description: Admin/API key used by the RustChain node for real transfers.
+    required: false
+  github-token:
+    description: GitHub token used to read .rtc-wallet and post the reward comment.
+    required: false
+    default: ${{ github.token }}
+  dry-run:
+    description: When true, validate inputs and comment without sending RTC.
+    required: false
+    default: "false"
+  comment:
+    description: Post a confirmation or dry-run comment on the merged pull request.
+    required: false
+    default: "true"
+  fail-on-error:
+    description: Fail the workflow when a real transfer fails.
+    required: false
+    default: "false"
+  fallback-to-author:
+    description: Use the PR author's GitHub login as the wallet if no PR body or .rtc-wallet value is found.
+    required: false
+    default: "false"
+
+outputs:
+  result:
+    description: Result status, such as sent, dry-run, skipped, no-wallet, failed, or error.
+  wallet-to:
+    description: Destination wallet selected for the reward.
+  amount:
+    description: RTC amount selected for the reward.
+  transaction-id:
+    description: Transaction id/hash returned by the node, when available.
+  comment-url:
+    description: URL of the GitHub PR comment, when created.
+
+runs:
+  using: node20
+  main: dist/index.js
