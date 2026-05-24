@@ -1,0 +1,22 @@
+{
+  "name": "rtc-reward-action",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Reusable GitHub Action that awards RustChain RTC on merged pull requests.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check dist/index.js"
+  },
+  "keywords": [
+    "github-action",
+    "rustchain",
+    "rtc",
+    "bounty",
+    "rewards"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}
